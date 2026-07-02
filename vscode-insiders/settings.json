@@ -1,0 +1,118 @@
+{
+  "editor.minimap.enabled": false,
+  "editor.wordWrap": "on",
+  "editor.fontSize": 16,
+  "editor.renderValidationDecorations": "on",
+
+  // Make suggestions appear automatically in LaTeX files.
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.tabCompletion": "on",
+
+  "[latex]": {
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false
+  },
+
+  "[tex]": {
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false
+  },
+
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.pdf": "latex-workshop-pdf-hook"
+  },
+
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+
+  "workbench.colorTheme": "GitHub Dark Colorblind (Beta)",
+
+  "lean4.alwaysAskBeforeInstallingLeanVersions": true,
+
+  // Build LaTeX whenever the file is saved.
+  // Since autosave is enabled below, this also builds after autosave.
+  "latex-workshop.latex.autoBuild.run": "onSave",
+
+  // Do not show LaTeX Workshop error popup notifications.
+  "latex-workshop.message.error.show": false,
+
+  // LaTeX Workshop IntelliSense / autocomplete.
+  "latex-workshop.intellisense.package.enabled": true,
+  "latex-workshop.intellisense.package.env.enabled": true,
+  "latex-workshop.intellisense.package.unusual": true,
+  "latex-workshop.intellisense.unimathsymbols.enabled": true,
+  "latex-workshop.intellisense.subsuperscript.enabled": true,
+  "latex-workshop.intellisense.update.aggressive.enabled": true,
+  "latex-workshop.intellisense.update.delay": 500,
+
+  // Useful for resolving .bib and .cls files through TeX Live/MacTeX.
+  "latex-workshop.kpsewhich.bibtex.enabled": true,
+  "latex-workshop.kpsewhich.class.enabled": true,
+
+  // Autosave after you stop typing for 2 seconds.
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 2000,
+
+  "cSpell.enabled": true,
+  "cSpell.language": "en-US",
+  "cSpell.diagnosticLevel": "Warning",
+  "cSpell.useCustomDecorations": false,
+
+  "cSpell.enabledFileTypes": {
+    "latex": true,
+    "tex": true,
+    "bibtex": true,
+    "markdown": true,
+    "plaintext": true
+  },
+
+  "cSpell.ignoreRegExpList": [
+    "\\\\[a-zA-Z]+",
+    "\\$[^$]*\\$",
+    "\\\\\\[[\\s\\S]*?\\\\\\]",
+    "\\\\\\([\\s\\S]*?\\\\\\)"
+  ],
+  "cSpell.userWords": [
+    "basepoint",
+    "bosonic",
+    "bosonization",
+    "brane",
+    "branes",
+    "cohomology",
+    "Darboux",
+    "diffeomorphism",
+    "eigenmodes",
+    "factorization",
+    "fermionic",
+    "fieldstrength",
+    "groupoids",
+    "holomorphic",
+    "homeomorphism",
+    "homomorphism",
+    "monoid",
+    "monoidal",
+    "nondynamical",
+    "spinor",
+    "spinors",
+    "supergravity",
+    "symplectic",
+    "topological",
+    "torsionfree"
+  ],
+  "claudeCode.preferredLocation": "panel"
+}

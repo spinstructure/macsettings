@@ -1,0 +1,19 @@
+# Dock summary
+
+tilesize:
+<unset>
+
+magnification:
+0
+
+autohide:
+1
+
+orientation:
+right
+
+show-recents:
+<unset>
+
+mru-spaces:
+<unset>
