@@ -1,0 +1,11 @@
+# Menu bar / status item summary
+
+NSStatusItemSpacing:
+<unset>
+
+NSStatusItemSelectionPadding:
+<unset>
+
+systemuiserver menu extras:
+(
+)

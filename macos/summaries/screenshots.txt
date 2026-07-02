@@ -1,0 +1,10 @@
+# Screenshot summary
+
+location:
+~/Desktop/Screenshots
+
+type:
+<unset>
+
+disable-shadow:
+<unset>
