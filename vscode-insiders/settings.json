@@ -32,7 +32,6 @@
   },
 
   "workbench.editorAssociations": {
-    "*.copilotmd": "vscode.markdown.preview.editor",
     "*.pdf": "latex-workshop-pdf-hook"
   },
 
@@ -47,6 +46,13 @@
   // Build LaTeX whenever the file is saved.
   // Since autosave is enabled below, this also builds after autosave.
   "latex-workshop.latex.autoBuild.run": "onSave",
+
+  // Use LaTeX Workshop's internal PDF viewer in a VS Code tab.
+  "latex-workshop.view.pdf.viewer": "tab",
+
+  // Give the PDF watcher more time before refreshing the viewer.
+  // This can help when the PDF is rebuilt correctly but the tab does not update.
+  "latex-workshop.latex.watch.pdf.delay": 1000,
 
   // Do not show LaTeX Workshop error popup notifications.
   "latex-workshop.message.error.show": false,
@@ -114,7 +120,6 @@
     "topological",
     "torsionfree"
   ],
-  "claudeCode.preferredLocation": "panel",
   "cSpell.enabledSchemes": {
     "comment": true,
     "file": true,

@@ -22,6 +22,8 @@ brew "fftw"
 brew "gawk"
 # GNU compiler collection
 brew "gcc"
+# GitHub command-line tool
+brew "gh"
 # Interpreter for PostScript and PDF
 brew "ghostscript"
 # Distributed revision control system
@@ -116,7 +118,6 @@ cask "sage"
 cask "stats"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
-vscode "anthropic.claude-code"
 vscode "github.github-vscode-theme"
 vscode "james-yu.latex-workshop"
 vscode "leanprover.lean4"
@@ -124,7 +125,6 @@ vscode "ms-python.debugpy"
 vscode "ms-python.python"
 vscode "ms-python.vscode-pylance"
 vscode "ms-python.vscode-python-envs"
-vscode "openai.chatgpt"
 vscode "streetsidesoftware.code-spell-checker"
 vscode "tamasfe.even-better-toml"
 vscode "tecosaur.latex-utilities"
