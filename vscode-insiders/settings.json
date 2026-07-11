@@ -1,8 +1,12 @@
+```jsonc
 {
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.fontSize": 16,
   "editor.renderValidationDecorations": "on",
+
+  // Keep line numbers visible when entering Zen Mode.
+  "zenMode.hideLineNumbers": false,
 
   // Make suggestions appear automatically in LaTeX files.
   "editor.quickSuggestions": {
@@ -39,7 +43,7 @@
   "git.enableSmartCommit": true,
   "git.confirmSync": false,
 
-  "workbench.colorTheme": "GitHub Dark Colorblind (Beta)",
+  "workbench.colorTheme": "GitHub Dark Default",
 
   "lean4.alwaysAskBeforeInstallingLeanVersions": true,
 
@@ -93,7 +97,9 @@
     "\\\\\\[[\\s\\S]*?\\\\\\]",
     "\\\\\\([\\s\\S]*?\\\\\\)"
   ],
+
   "cSpell.userWords": [
+    "ABJM",
     "basepoint",
     "bosonic",
     "bosonization",
@@ -103,6 +109,7 @@
     "Darboux",
     "diffeomorphism",
     "eigenmodes",
+    "equivariant",
     "factorization",
     "fermionic",
     "fieldstrength",
@@ -113,13 +120,18 @@
     "monoid",
     "monoidal",
     "nondynamical",
+    "orbifold",
     "spinor",
     "spinors",
+    "SUGRA",
     "supergravity",
+    "superinvariant",
     "symplectic",
     "topological",
     "torsionfree"
   ],
+
+
   "cSpell.enabledSchemes": {
     "comment": true,
     "file": true,
