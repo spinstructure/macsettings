@@ -53,6 +53,25 @@
   // Use LaTeX Workshop's internal PDF viewer in a VS Code tab.
   "latex-workshop.view.pdf.viewer": "tab",
 
+  // Configure LaTeX Workshop's PDF dark/invert mode.
+  // The Easy Toggle Settings button below switches between
+  // "always" and "never".
+  "latex-workshop.view.pdf.invert": 1,
+  "latex-workshop.view.pdf.invertMode.enabled": "always",
+
+  // Add a status-bar button for toggling PDF dark mode.
+  "easy-toggle-settings.items": [
+    {
+      "property": "latex-workshop.view.pdf.invertMode.enabled",
+      "icon": "color-mode",
+      "values": [
+        "always",
+        "never"
+      ],
+      "disabledValue": "never"
+    }
+  ],
+
   // Give the PDF watcher more time before refreshing the viewer.
   // This can help when the PDF is rebuilt correctly but the tab does not update.
   "latex-workshop.latex.watch.pdf.delay": 1000,

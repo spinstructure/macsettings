@@ -1,6 +1,7 @@
 github.github-vscode-theme
 james-yu.latex-workshop
 leanprover.lean4
+mhagnumdw.easy-toggle-settings
 ms-python.debugpy
 ms-python.python
 ms-python.vscode-pylance
