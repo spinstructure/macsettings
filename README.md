@@ -4,7 +4,7 @@ Selective backup of my Mac settings.
 
 This repository stores readable, reviewable configuration files that are useful when setting up a new Mac or recovering my working environment. It is **not** a full system backup.
 
-Use **Time Machine** for full-machine recovery. Use this repository for selected dotfiles, editor settings, package lists, app preferences, and non-sensitive macOS preference summaries.
+Use **Time Machine** for full-machine recovery. Use this repository for selected dotfiles, editor settings, package lists, selected app preferences, and non-sensitive macOS preference summaries.
 
 ## External apps and tools
 
@@ -15,8 +15,8 @@ This repository backs up or records settings/state for the following external ap
 | [Zsh](https://www.zsh.org/) | Shell startup files such as `.zshrc`, `.zprofile`, and `.zshenv` |
 | [Vim](https://www.vim.org/) | Vim configuration via `.vimrc` |
 | [Git](https://git-scm.com/) | Sanitized Git configuration and global ignore file |
-| [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) | User settings, keybindings, snippets, and extension list |
-| [Stats](https://mac-stats.com/) | Sanitized Stats app preferences from the `eu.exelban.Stats` macOS preferences domain |
+| [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) | User settings, keybindings, snippets, extension list, and generated folder documentation |
+| [Stats](https://mac-stats.com/) | Sanitized Stats app preferences from the `eu.exelban.Stats` macOS preferences domain, if present |
 | [Homebrew](https://brew.sh/) | Package/app state via [`Brewfile`](https://docs.brew.sh/Brew-Bundle-and-Brewfile) |
 | [Gitleaks](https://github.com/gitleaks/gitleaks) | Optional secret scanning before commit/push |
 | [TruffleHog](https://github.com/trufflesecurity/trufflehog) | Optional secret scanning before commit/push |
@@ -45,14 +45,11 @@ git/
   .gitignore_global
 
 vscode-insiders/
+  README.md
   settings.json
   keybindings.json
   extensions.txt
   snippets/
-
-apps/
-  stats/
-    eu.exelban.Stats.plist
 
 macos/
   summaries/
@@ -63,6 +60,8 @@ macos/
 
 Brewfile
 ```
+
+Depending on what exists on the local machine, the backup script may also create sanitized app-preference files such as Stats preferences. Do not commit app-preference files unless you are comfortable making their sanitized contents public.
 
 ## What is intentionally not backed up
 
@@ -100,7 +99,7 @@ UUIDs
 
 This is a safety net, not a guarantee.
 
-The script also avoids broad macOS defaults plists, because they can contain recent folders, cloud-drive account names, and other private paths.
+The script avoids broad macOS defaults plists, because they can contain recent folders, cloud-drive account names, and other private paths.
 
 ## Git identity
 
@@ -194,23 +193,58 @@ The script backs up [Visual Studio Code Insiders](https://code.visualstudio.com/
 ~/Library/Application Support/Code - Insiders/User
 ```
 
-It also tries to record installed extensions using:
-
-```bash
-code-insiders --list-extensions
-```
-
-If the `code-insiders` command is not installed in the shell PATH, the script falls back to the app-bundle path:
+The VS Code Insiders backup is documented in:
 
 ```text
-/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code-insiders
+vscode-insiders/README.md
 ```
+
+That folder README explains the backed-up VS Code Insiders files:
+
+```text
+vscode-insiders/settings.json
+vscode-insiders/keybindings.json
+vscode-insiders/extensions.txt
+vscode-insiders/snippets/
+```
+
+The folder README is generated from `vscode-insiders/settings.json` by:
+
+```text
+scripts/update-vscode-insiders-readme.py
+```
+
+The main `backup.sh` script runs this generator automatically after copying and sanitizing the VS Code Insiders settings.
+
+To regenerate the VS Code Insiders README manually:
+
+```bash
+python3 scripts/update-vscode-insiders-readme.py
+```
+
+### Optional local pre-commit hook
+
+A local Git pre-commit hook can regenerate `vscode-insiders/README.md` automatically whenever `vscode-insiders/settings.json` is staged.
+
+The hook lives inside the local repository's hidden `.git` directory:
+
+```text
+.git/hooks/pre-commit
+```
+
+For example, for this repository on a Mac, that path is usually:
+
+```text
+~/vivek_macsettings/.git/hooks/pre-commit
+```
+
+Git hooks are local to a clone and are not committed to GitHub by default.
 
 ## Stats app
 
-The script backs up settings for the [Stats](https://mac-stats.com/) menu-bar system monitor app.
+The script can back up settings for the [Stats](https://mac-stats.com/) menu-bar system monitor app, if Stats preferences are present locally.
 
-The backed-up file is:
+The possible backed-up file is:
 
 ```text
 apps/stats/eu.exelban.Stats.plist
@@ -222,7 +256,7 @@ This is exported from the macOS preferences domain:
 eu.exelban.Stats
 ```
 
-Do not back up Stats cache folders. The preferences plist is enough for app settings.
+Do not back up Stats cache folders. The preferences plist is enough for app settings, and it should be committed only after checking that its sanitized contents are safe to publish.
 
 ## macOS settings
 
