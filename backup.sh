@@ -9,7 +9,7 @@ cd "$REPO_DIR"
 # This public backup intentionally excludes AI app/agent state and settings.
 rm -rf apps/codex apps/chatgpt apps/claude-code apps/claude-desktop
 
-mkdir -p shell vim git vscode-insiders apps/stats macos/summaries
+mkdir -p shell vim git vscode-insiders apps/stats macos/summaries scripts
 
 sanitize_home_path_in_file () {
   local file="$1"
@@ -276,6 +276,18 @@ else
 fi
 
 echo
+echo "Updating VS Code Insiders README..."
+if [ -f scripts/update-vscode-insiders-readme.py ]; then
+  if command -v python3 >/dev/null 2>&1; then
+    python3 scripts/update-vscode-insiders-readme.py
+  else
+    echo "Skipped VS Code Insiders README update: python3 command not found"
+  fi
+else
+  echo "Skipped VS Code Insiders README update: scripts/update-vscode-insiders-readme.py not found"
+fi
+
+echo
 echo "Backing up Stats app settings..."
 STATS_DOMAIN="eu.exelban.Stats"
 STATS_PREF="$HOME/Library/Preferences/${STATS_DOMAIN}.plist"
@@ -457,6 +469,7 @@ fi
 
 echo "Backup complete."
 echo "AI-related app/agent state and common AI-tool references were excluded from this backup."
+echo "VS Code Insiders README was regenerated if the generator script was present."
 echo
 echo "To commit and push the backup, run:"
 echo "  git add ."
