@@ -79,7 +79,7 @@ The main `backup.sh` script runs this generator automatically after copying `set
 | `latex-workshop.latex.watch.pdf.delay` | `1000` | Sets the PDF watcher delay. |
 | `latex-workshop.message.error.show` | `false` | Controls LaTeX Workshop error popup messages. |
 | `latex-workshop.view.pdf.invert` | `1` | Controls PDF inversion intensity. |
-| `latex-workshop.view.pdf.invertMode.enabled` | `always` | Controls when PDF invert mode is enabled. |
+| `latex-workshop.view.pdf.invertMode.enabled` | `never` | Controls when PDF invert mode is enabled. |
 | `latex-workshop.view.pdf.viewer` | `tab` | Controls the LaTeX Workshop PDF viewer type. |
 
 ### Language-specific overrides
