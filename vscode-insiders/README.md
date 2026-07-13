@@ -106,7 +106,7 @@ The main `backup.sh` script runs this generator automatically after copying `set
 | `cSpell.ignoreRegExpList` | 4 item(s) | Stores regular expressions ignored by spell checking. |
 | `cSpell.language` | `en-US` | Sets the spell-checking language. |
 | `cSpell.useCustomDecorations` | `false` |  |
-| `cSpell.userWords` | 30 item(s) | Stores custom words accepted by the spell checker. |
+| `cSpell.userWords` | 42 item(s) | Stores custom words accepted by the spell checker. |
 
 ### Theme / appearance
 
