@@ -4,6 +4,11 @@
   "editor.fontSize": 16,
   "editor.renderValidationDecorations": "on",
 
+  // chat.fontSize controls normal chat text and the prompt box.
+  // chat.editor.fontSize controls code snippets and diffs.
+  "chat.fontSize": 16,
+  "chat.editor.fontSize": 16,
+
   // Keep line numbers visible when entering Zen Mode.
   "zenMode.hideLineNumbers": false,
 
@@ -57,7 +62,7 @@
   // The Easy Toggle Settings button below switches between
   // "always" and "never".
   "latex-workshop.view.pdf.invert": 1,
-  "latex-workshop.view.pdf.invertMode.enabled": "never",
+  "latex-workshop.view.pdf.invertMode.enabled": "always",
 
   // Add a status-bar button for toggling PDF dark mode.
   "easy-toggle-settings.items": [
