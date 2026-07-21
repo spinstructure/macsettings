@@ -6,6 +6,16 @@ cd "$REPO_DIR"
 
 ./backup.sh
 
-git add .
+if [ -z "$(git status --porcelain)" ]; then
+  echo "No backup changes to commit."
+  exit 0
+fi
+
+git add -A
+
+echo
+echo "Changes to be committed:"
+git status --short
+
 git commit -m "Update Mac settings"
 git push

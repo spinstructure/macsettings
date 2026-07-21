@@ -9,7 +9,7 @@ README_DIR="$REPO_DIR/vscode-insiders"
 README_FILE="$README_DIR/README.md"
 
 CODEX_BIN="${CODEX_BIN:-codex}"
-GENERATOR_VERSION="1"
+GENERATOR_VERSION="2"
 
 if [[ ! -f "$SETTINGS_FILE" ]]; then
   echo "Missing VS Code Insiders settings: $SETTINGS_FILE" >&2
@@ -34,9 +34,10 @@ fi
 
 MODEL_OUTPUT="$(mktemp "$README_DIR/.README.model.XXXXXX")"
 NEXT_README="$(mktemp "$README_DIR/.README.next.XXXXXX")"
+CODEX_LOG="$(mktemp "$README_DIR/.README.codex-log.XXXXXX")"
 
 cleanup() {
-  rm -f "$MODEL_OUTPUT" "$NEXT_README"
+  rm -f "$MODEL_OUTPUT" "$NEXT_README" "$CODEX_LOG"
 }
 trap cleanup EXIT INT TERM HUP
 
@@ -89,7 +90,21 @@ PROMPT
 } | "$CODEX_BIN" exec \
       --ephemeral \
       --sandbox read-only \
-      - > "$MODEL_OUTPUT"
+      - > "$MODEL_OUTPUT" 2> "$CODEX_LOG" || {
+  echo "Codex failed to generate the VS Code Insiders README." >&2
+  echo "Codex diagnostics after the submitted settings:" >&2
+
+  if grep -Fq -- '--- END SETTINGS.JSON ---' "$CODEX_LOG"; then
+    awk '
+      found { print }
+      /--- END SETTINGS.JSON ---/ { found = 1 }
+    ' "$CODEX_LOG" | tail -n 80 >&2
+  else
+    tail -n 40 "$CODEX_LOG" >&2
+  fi
+
+  exit 1
+}
 
 if [[ ! -s "$MODEL_OUTPUT" ]]; then
   echo "Codex returned an empty README." >&2
@@ -111,8 +126,10 @@ fi
 {
   printf '%s\n\n' "$SOURCE_MARKER"
   cat "$MODEL_OUTPUT"
-  printf '\n'
 } > "$NEXT_README"
+
+# Normalize the generated document to exactly one trailing newline.
+perl -0pi -e 's/\s*\z/\n/' "$NEXT_README"
 
 # Replace the README only after validating the generated document.
 mv "$NEXT_README" "$README_FILE"

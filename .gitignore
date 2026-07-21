@@ -3,6 +3,12 @@ __MACOSX/
 .AppleDouble/
 ._*
 
+# Interrupted generated-README runs
+vscode-insiders/.README.*
+
+# Local AI-agent state is never part of this public settings repository
+.codex/
+
 *.bak
 *.tmp
 *.local

@@ -37,30 +37,30 @@ sanitize_private_info_in_file () {
 
   perl -0pi -e '
     # Email addresses
-    s/[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}/<EMAIL_REDACTED>/g;
+    s/[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}/REDACTED_EMAIL/g;
 
     # Common API-key/token forms
-        s/sk-proj-[A-Za-z0-9_\-]{20,}/<API_KEY_REDACTED>/g;
-    s/sk-[A-Za-z0-9_\-]{20,}/<API_KEY_REDACTED>/g;
-    s/ghp_[A-Za-z0-9_]{20,}/<GITHUB_TOKEN_REDACTED>/g;
-    s/github_pat_[A-Za-z0-9_]+/<GITHUB_TOKEN_REDACTED>/g;
-    s/AKIA[0-9A-Z]{16}/<AWS_ACCESS_KEY_REDACTED>/g;
+    s/sk-proj-[A-Za-z0-9_\-]{20,}/REDACTED_API_KEY/g;
+    s/sk-[A-Za-z0-9_\-]{20,}/REDACTED_API_KEY/g;
+    s/ghp_[A-Za-z0-9_]{20,}/REDACTED_GITHUB_TOKEN/g;
+    s/github_pat_[A-Za-z0-9_]+/REDACTED_GITHUB_TOKEN/g;
+    s/AKIA[0-9A-Z]{16}/REDACTED_AWS_ACCESS_KEY/g;
 
-    # Bearer <REDACTED>
-    s/Bearer\s+[A-Za-z0-9._\-\/+=]+/Bearer <REDACTED>/g;
+    # Bearer token
+    s/Bearer\s+[A-Za-z0-9._\-\/+=]+/Bearer REDACTED/g;
 
     # Private key blocks
-    s/-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----/<PRIVATE_KEY_REDACTED>/gs;
+    s/-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----/REDACTED_PRIVATE_KEY/gs;
 
     # JSON/TOML/YAML-ish sensitive keys
-    s/("(?:api[_-]?key|token|access[_-]?token|refresh[_-]?token|secret|client[_-]?secret|password|session|auth)"\s*[:=]\s*)("[^"]*"|[^\s,\n]+)/$1"<REDACTED>"/gi;
-    s/((?:api[_-]?key|token|access[_-]?token|refresh[_-]?token|secret|client[_-]?secret|password|session|auth)\s*[:=]\s*)("[^"]*"|[^\s,\n]+)/$1"<REDACTED>"/gi;
+    s/("(?:api[_-]?key|token|access[_-]?token|refresh[_-]?token|secret|client[_-]?secret|password|session|auth)"\s*[:=]\s*)("[^"]*"|[^\s,\n]+)/$1"REDACTED"/gi;
+    s/((?:api[_-]?key|token|access[_-]?token|refresh[_-]?token|secret|client[_-]?secret|password|session|auth)\s*[:=]\s*)("[^"]*"|[^\s,\n]+)/$1"REDACTED"/gi;
 
     # XML plist sensitive keys
-    s/(<key>[^<]*(?:api[_-]?key|token|access[_-]?token|refresh[_-]?token|secret|client[_-]?secret|password|session|auth)[^<]*<\/key>\s*<string>)[^<]*(<\/string>)/$1<REDACTED>$2/gi;
+    s/(<key>[^<]*(?:api[_-]?key|token|access[_-]?token|refresh[_-]?token|secret|client[_-]?secret|password|session|auth)[^<]*<\/key>\s*<string>)[^<]*(<\/string>)/${1}REDACTED$2/gi;
 
     # UUIDs can identify local app/device state. Usually not useful in a public settings repo.
-    s/\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b/<UUID_REDACTED>/g;
+    s/\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b/REDACTED_UUID/g;
   ' "$file"
 }
 
@@ -277,14 +277,11 @@ fi
 
 echo
 echo "Updating VS Code Insiders README..."
-if [ -f scripts/update-vscode-insiders-readme.py ]; then
-  if command -v python3 >/dev/null 2>&1; then
-    python3 scripts/update-vscode-insiders-readme.py
-  else
-    echo "Skipped VS Code Insiders README update: python3 command not found"
-  fi
+if [ -f scripts/update-vscode-insiders-readme.sh ]; then
+  zsh scripts/update-vscode-insiders-readme.sh
+  sanitize_private_info_in_file vscode-insiders/README.md
 else
-  echo "Skipped VS Code Insiders README update: scripts/update-vscode-insiders-readme.py not found"
+  echo "Skipped VS Code Insiders README update: scripts/update-vscode-insiders-readme.sh not found"
 fi
 
 echo
@@ -468,8 +465,8 @@ if [ "$SECRETS_FOUND" -ne 0 ]; then
 fi
 
 echo "Backup complete."
-echo "AI-related app/agent state and common AI-tool references were excluded from this backup."
-echo "VS Code Insiders README was regenerated if the generator script was present."
+echo "AI-related app/agent state and common AI-tool settings were excluded from this backup."
+echo "VS Code Insiders README was regenerated with Codex if its generator script was present."
 echo
 echo "To commit and push the backup, run:"
 echo "  git add ."

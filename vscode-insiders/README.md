@@ -1,4 +1,4 @@
-# VS Code Insiders settings
+# VS Code Insiders Settings
 
 This README is generated from `vscode-insiders/settings.json`.
 
@@ -8,13 +8,15 @@ The backed-up settings file corresponds to the macOS VS Code Insiders user setti
 ~/Library/Application Support/Code - Insiders/User/settings.json
 ```
 
-Regenerate this README with:
+Regenerate this README with Codex:
 
 ```bash
-python3 scripts/update-vscode-insiders-readme.py
+./scripts/update-vscode-insiders-readme.sh
 ```
 
-The main `backup.sh` script runs this generator automatically after copying `settings.json`.
+The main `backup.sh` script runs this generator automatically after copying and
+sanitizing `settings.json`. The generator skips the Codex call when the settings
+hash has not changed.
 
 ## Summary
 

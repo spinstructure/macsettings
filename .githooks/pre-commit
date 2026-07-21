@@ -1,0 +1,11 @@
+#!/bin/zsh
+set -euo pipefail
+
+REPO_DIR="$(git rev-parse --show-toplevel)"
+cd "$REPO_DIR"
+
+if ! git diff --cached --quiet --diff-filter=ACMR -- \
+  vscode-insiders/settings.json; then
+  zsh scripts/update-vscode-insiders-readme.sh
+  git add -- vscode-insiders/README.md
+fi
