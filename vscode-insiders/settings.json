@@ -59,12 +59,14 @@
   "latex-workshop.view.pdf.viewer": "tab",
 
   // Configure LaTeX Workshop's PDF dark/invert mode.
-  // The Easy Toggle Settings button below switches between
-  // "always" and "never".
+  // "never" is the global default. The status-bar button below creates
+  // a workspace-specific override for the currently open workspace.
   "latex-workshop.view.pdf.invert": 1,
-  "latex-workshop.view.pdf.invertMode.enabled": "always",
+  "latex-workshop.view.pdf.invertMode.enabled": "never",
 
   // Add a status-bar button for toggling PDF dark mode.
+  // isWorkspace ensures the button affects only the current workspace,
+  // rather than every VS Code Insiders window.
   "easy-toggle-settings.items": [
     {
       "property": "latex-workshop.view.pdf.invertMode.enabled",
@@ -73,7 +75,8 @@
         "always",
         "never"
       ],
-      "disabledValue": "never"
+      "disabledValue": "never",
+      "isWorkspace": true
     }
   ],
 
