@@ -1,0 +1,16 @@
+# Finder summary
+
+AppleShowAllFiles:
+<unset>
+
+AppleShowAllExtensions:
+<unset>
+
+ShowPathbar:
+<unset>
+
+ShowStatusBar:
+1
+
+FXPreferredViewStyle:
+Nlsv

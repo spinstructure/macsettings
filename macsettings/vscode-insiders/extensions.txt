@@ -1,0 +1,11 @@
+github.github-vscode-theme
+james-yu.latex-workshop
+leanprover.lean4
+mhagnumdw.easy-toggle-settings
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-python.vscode-python-envs
+streetsidesoftware.code-spell-checker
+tamasfe.even-better-toml
+tecosaur.latex-utilities

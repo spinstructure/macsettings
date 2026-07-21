@@ -1,0 +1,187 @@
+{
+  "editor.minimap.enabled": false,
+  "editor.wordWrap": "on",
+  "editor.fontSize": 16,
+  "editor.renderValidationDecorations": "on",
+
+  // chat.fontSize controls normal chat text and the prompt box.
+  // chat.editor.fontSize controls code snippets and diffs.
+  "chat.fontSize": 16,
+  "chat.editor.fontSize": 16,
+
+  // Keep line numbers visible when entering Zen Mode.
+  "zenMode.hideLineNumbers": false,
+
+  // Make suggestions appear automatically in LaTeX files.
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.tabCompletion": "on",
+
+  "[latex]": {
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false
+  },
+
+  "[tex]": {
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false
+  },
+
+  "workbench.editorAssociations": {
+    "*.pdf": "latex-workshop-pdf-hook"
+  },
+
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+
+  "workbench.colorTheme": "GitHub Dark Default",
+
+  "lean4.alwaysAskBeforeInstallingLeanVersions": true,
+
+  // Build LaTeX whenever the file is saved.
+  // Since autosave is enabled below, this also builds after autosave.
+  "latex-workshop.latex.autoBuild.run": "onSave",
+
+  // Use LaTeX Workshop's internal PDF viewer in a VS Code tab.
+  "latex-workshop.view.pdf.viewer": "tab",
+
+  // Configure LaTeX Workshop's PDF dark/invert mode.
+  // "never" is the global default. The status-bar button below creates
+  // a workspace-specific override for the currently open workspace.
+  "latex-workshop.view.pdf.invert": 1,
+  "latex-workshop.view.pdf.invertMode.enabled": "never",
+
+  // Add a status-bar button for toggling PDF dark mode.
+  // isWorkspace ensures the button affects only the current workspace,
+  // rather than every VS Code Insiders window.
+  "easy-toggle-settings.items": [
+    {
+      "property": "latex-workshop.view.pdf.invertMode.enabled",
+      "icon": "color-mode",
+      "values": [
+        "always",
+        "never"
+      ],
+      "disabledValue": "never",
+      "isWorkspace": true
+    }
+  ],
+
+  // Give the PDF watcher more time before refreshing the viewer.
+  // This can help when the PDF is rebuilt correctly but the tab does not update.
+  "latex-workshop.latex.watch.pdf.delay": 1000,
+
+  // Do not show LaTeX Workshop error popup notifications.
+  "latex-workshop.message.error.show": false,
+
+  // LaTeX Workshop IntelliSense / autocomplete.
+  "latex-workshop.intellisense.package.enabled": true,
+  "latex-workshop.intellisense.package.env.enabled": true,
+  "latex-workshop.intellisense.package.unusual": true,
+  "latex-workshop.intellisense.unimathsymbols.enabled": true,
+  "latex-workshop.intellisense.subsuperscript.enabled": true,
+  "latex-workshop.intellisense.update.aggressive.enabled": true,
+  "latex-workshop.intellisense.update.delay": 500,
+
+  // Useful for resolving .bib and .cls files through TeX Live/MacTeX.
+  "latex-workshop.kpsewhich.bibtex.enabled": true,
+  "latex-workshop.kpsewhich.class.enabled": true,
+
+  // Autosave after you stop typing for 2 seconds.
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 2000,
+
+  "cSpell.enabled": true,
+  "cSpell.language": "en-US",
+  "cSpell.diagnosticLevel": "Warning",
+  "cSpell.useCustomDecorations": false,
+
+  "cSpell.enabledFileTypes": {
+    "latex": true,
+    "tex": true,
+    "bibtex": true,
+    "markdown": true,
+    "plaintext": true
+  },
+
+  "cSpell.ignoreRegExpList": [
+    "\\\\[a-zA-Z]+",
+    "\\$[^$]*\\$",
+    "\\\\\\[[\\s\\S]*?\\\\\\]",
+    "\\\\\\([\\s\\S]*?\\\\\\)"
+  ],
+
+  "cSpell.userWords": [
+    "ABJM",
+    "backrefs",
+    "basepoint",
+    "Bianchi",
+    "bosonic",
+    "bosonization",
+    "brane",
+    "branes",
+    "cohomology",
+    "compactifications",
+    "Darboux",
+    "diagonalizable",
+    "diffeomorphism",
+    "eigenmodes",
+    "equivariant",
+    "exponentials",
+    "factorization",
+    "fermionic",
+    "fieldstrength",
+    "groupoids",
+    "holomorphic",
+    "homeomorphism",
+    "homomorphism",
+    "jheppub",
+    "monoid",
+    "monoidal",
+    "natbib",
+    "nondynamical",
+    "orbifold",
+    "Rham",
+    "spacetimes",
+    "spinor",
+    "spinors",
+    "sublattice",
+    "SUGRA",
+    "supergravity",
+    "superinvariant",
+    "superpotentials",
+    "symplectic",
+    "topological",
+    "torsionfree",
+    "wavefunction"
+  ],
+
+
+  "cSpell.enabledSchemes": {
+    "comment": true,
+    "file": true,
+    "gist": true,
+    "repo": true,
+    "sftp": true,
+    "untitled": true,
+    "vscode-notebook-cell": true,
+    "vscode-scm": true,
+    "vscode-userdata": true,
+    "vscode-vfs": true,
+    "vsls": true,
+    "overleaf-workshop": true
+  }
+}

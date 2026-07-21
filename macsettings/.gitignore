@@ -1,0 +1,37 @@
+.DS_Store
+__MACOSX/
+.AppleDouble/
+._*
+
+# Interrupted generated-README runs
+vscode-insiders/.README.*
+
+# Local AI-agent state is never part of this public settings repository
+.codex/
+
+*.bak
+*.tmp
+*.local
+
+.env
+.env.*
+!.env.example
+secrets.*
+private.*
+*.secret
+
+.zshrc.local
+.zprofile.local
+.zshenv.local
+
+git/.gitconfig.private
+git/.gitconfig.raw
+
+ssh/
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# App preference plists that may leak account/device/project state
+apps/stats/*.plist
