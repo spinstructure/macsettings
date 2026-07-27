@@ -81,7 +81,7 @@ brew "python@3.13"
 # Software for mathematics, science, and engineering
 brew "scipy"
 # Find and verify credentials
-brew "trufflehog", link: false
+brew "trufflehog"
 # Vi 'workalike' with many additional features
 brew "vim"
 # Internet file retriever
@@ -104,6 +104,7 @@ brew "homebrew-zathura/zathura/zathura-ps"
 brew "kpeeters/repo/cadabra2"
 # Enable Windows-like alt-tab
 cask "alt-tab"
+# Terminal-based AI coding assistant
 # Cross-platform Git credential storage for multiple hosting providers
 cask "git-credential-manager"
 # Graphical interface for LaTeX
