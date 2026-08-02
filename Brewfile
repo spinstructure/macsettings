@@ -36,6 +36,8 @@ brew "gnu-sed"
 brew "gnuplot"
 # Numerical library for C and C++
 brew "gsl"
+# C99 library for parsing HTML5
+brew "gumbo-parser"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
 # File format designed to store large amounts of data
@@ -50,6 +52,8 @@ brew "juliaup"
 brew "python@3.14"
 # Interactive environments for writing and running code
 brew "jupyterlab"
+# Small library for rendering Postscript documents
+brew "libspectre"
 # Library of exchange and correlation functionals for codes
 brew "libxc"
 # Next-gen compiler infrastructure
@@ -58,6 +62,8 @@ brew "llvm"
 brew "ninja"
 # Terminal-based visual file manager
 brew "midnight-commander"
+# Lightweight PDF and XPS viewer
+brew "mupdf"
 # POSIX *nix fetch script using Nerdfonts
 brew "nerdfetch"
 # Optimized BLAS library
