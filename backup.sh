@@ -6,6 +6,9 @@ echo "Starting macsettings backup..."
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$REPO_DIR"
 
+echo "Ensuring the LaTeX Workshop relative-source-link integration..."
+"$REPO_DIR/scripts/ensure-latex-workshop-relative-links.py"
+
 # This public backup intentionally excludes AI app/agent state and settings.
 rm -rf apps/codex apps/chatgpt apps/claude-code apps/claude-desktop
 

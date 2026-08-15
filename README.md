@@ -15,7 +15,7 @@ This repository backs up or records settings/state for the following external ap
 | [Zsh](https://www.zsh.org/) | Shell startup files such as `.zshrc`, `.zprofile`, and `.zshenv` |
 | [Vim](https://www.vim.org/) | Vim configuration via `.vimrc` |
 | [Git](https://git-scm.com/) | Sanitized Git configuration and global ignore file |
-| [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) | User settings, keybindings, snippets, extension list, and generated folder documentation |
+| [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) | User settings, keybindings, snippets, extension list, generated folder documentation, and a reproducible LaTeX Workshop PDF-link integration |
 | [Stats](https://mac-stats.com/) | Sanitized Stats app preferences from the `eu.exelban.Stats` macOS preferences domain, if present |
 | [Homebrew](https://brew.sh/) | Package/app state via [`Brewfile`](https://docs.brew.sh/Brew-Bundle-and-Brewfile) |
 | [Codex CLI](https://learn.chatgpt.com/docs/non-interactive-mode) | Regenerates the VS Code Insiders settings documentation from the sanitized `settings.json` |
@@ -251,6 +251,85 @@ git config core.hooksPath .githooks
 The hook regenerates and stages `vscode-insiders/README.md` only when
 `vscode-insiders/settings.json` is staged. The `core.hooksPath` setting is local
 to each clone.
+
+### Relative TeX-line links in LaTeX Workshop PDFs
+
+Some generated PDFs use privacy-safe links such as
+`https://vscode-insiders.invalid/source.tex:1500:1`. LaTeX Workshop's
+PDF.js viewer normally permits only ordinary web links, so the repository
+includes an idempotent local installer:
+
+```text
+scripts/ensure-latex-workshop-relative-links.py
+```
+
+The installer finds every installed `james-yu.latex-workshop-*` extension
+version, verifies the expected viewer source layout, saves the unmodified file
+as `viewer.js.macsettings-backup`, and adds a narrow handler for the reserved
+`vscode-insiders.invalid` authority. The handler resolves the source filename
+relative to the directory containing the open PDF and falls back to the first
+workspace folder only when the PDF client cannot be identified. It rejects
+parent-directory components and does not change ordinary web links.
+
+This integration modifies the locally installed LaTeX Workshop extension; it
+is not a VS Code setting and is therefore not carried by `settings.json` or
+Settings Sync.
+
+#### Behavior after updates
+
+- A routine VS Code Insiders application update normally leaves installed
+  extension files alone, although an accompanying extension update can still
+  replace the patched file.
+- A LaTeX Workshop update normally creates or replaces an extension-version
+  directory. The newly active version may therefore be unpatched until the
+  installer runs again.
+- The installer runs automatically from `backup.sh` and from the tracked
+  `pre-commit`, `pre-push`, `post-merge`, `post-checkout`, and `post-rewrite`
+  hooks. These cover the normal macsettings backup, commit, push, pull, branch
+  checkout, and rebase workflows.
+- An extension update does not itself run a macsettings Git hook. To restore
+  the feature immediately after updating LaTeX Workshop, run the installer
+  directly.
+- If a future LaTeX Workshop release changes the relevant source layout, the
+  installer exits with a clear error rather than applying a speculative patch.
+  The installer must then be reviewed and adapted for that release.
+- Whenever the installer reports that it changed an extension, run
+  **Developer: Reload Window** in VS Code Insiders before testing the links.
+
+Git deliberately does not enable hooks supplied by a newly cloned repository.
+After cloning on a new Mac, install LaTeX Workshop and run this one-time setup:
+
+```bash
+./scripts/setup-local-hooks.sh
+```
+
+Run the installer directly at any time with:
+
+```bash
+./scripts/ensure-latex-workshop-relative-links.py
+```
+
+#### Sharing the functionality
+
+The PDF alone contains only a relative source filename, line, and column. It
+does not contain a local home-directory path. For another user to retain the
+click-to-source behavior:
+
+1. Share the PDF together with its corresponding source file, preserving the
+   relative filename encoded in the PDF. The simplest arrangement is to keep
+   the PDF and source file in the same directory.
+2. The recipient installs VS Code Insiders and LaTeX Workshop.
+3. The recipient obtains this generic installer and runs
+   `scripts/setup-local-hooks.sh` once from a clone of this repository. If the
+   recipient receives only the standalone installer, they can run
+   `scripts/ensure-latex-workshop-relative-links.py` directly but must repeat
+   that command after relevant extension updates.
+4. The recipient reloads the VS Code Insiders window after the installer makes
+   a change.
+
+The installer and this documentation are deliberately project-neutral. They do
+not contain manuscript names, unrelated project details, personal identifiers,
+or local filesystem paths.
 
 ## Stats app
 

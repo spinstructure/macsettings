@@ -4,6 +4,8 @@ set -euo pipefail
 REPO_DIR="$(git rev-parse --show-toplevel)"
 cd "$REPO_DIR"
 
+"$REPO_DIR/scripts/ensure-latex-workshop-relative-links.py"
+
 if ! git diff --cached --quiet --diff-filter=ACMR -- \
   vscode-insiders/settings.json; then
   zsh scripts/update-vscode-insiders-readme.sh

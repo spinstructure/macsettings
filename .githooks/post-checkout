@@ -1,0 +1,5 @@
+#!/bin/zsh
+set -euo pipefail
+
+REPO_DIR="$(git rev-parse --show-toplevel)"
+"$REPO_DIR/scripts/ensure-latex-workshop-relative-links.py"
