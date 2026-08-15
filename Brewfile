@@ -87,7 +87,7 @@ brew "python@3.13"
 # Software for mathematics, science, and engineering
 brew "scipy"
 # Find and verify credentials
-brew "trufflehog"
+brew "trufflehog", link: false
 # Vi 'workalike' with many additional features
 brew "vim"
 # Internet file retriever
