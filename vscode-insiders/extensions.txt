@@ -1,3 +1,4 @@
+cweijan.vscode-office
 github.github-vscode-theme
 james-yu.latex-workshop
 leanprover.lean4

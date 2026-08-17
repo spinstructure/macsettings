@@ -125,6 +125,7 @@ cask "sage"
 cask "stats"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
+vscode "cweijan.vscode-office"
 vscode "github.github-vscode-theme"
 vscode "james-yu.latex-workshop"
 vscode "leanprover.lean4"
