@@ -1,7 +1,7 @@
 # Dock summary
 
 tilesize:
-<unset>
+64
 
 magnification:
 0

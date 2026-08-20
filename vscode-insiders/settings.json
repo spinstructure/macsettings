@@ -183,5 +183,14 @@
     "vscode-vfs": true,
     "vsls": true,
     "overleaf-workshop": true
-  }
+  },
+
+  "remote.SSH.showLoginTerminal": true,
+  "remote.SSH.useLocalServer": false,
+  "remote.SSH.useExecServer": false,
+  "remote.SSH.remotePlatform": {
+    "tiger3.princeton.edu": "linux"
+  },
+  "remote.SSH.enableDynamicForwarding": false,
+  "remote.SSH.showLoginTerminal": true
 }
