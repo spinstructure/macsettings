@@ -11,3 +11,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
 export PATH="$HOME/.elan/bin:$PATH"
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# >>> Codex installer >>>
+export PATH="$HOME/.local/bin:$PATH"
+# <<< Codex installer <<<

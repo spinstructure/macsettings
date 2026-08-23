@@ -1,5 +1,6 @@
 tap "homebrew-zathura/zathura", trusted: true
 tap "kpeeters/repo", trusted: true
+tap "macpaw/taps"
 # Spell checker with better logic than ispell
 brew "aspell"
 # Cross-platform make
@@ -87,7 +88,7 @@ brew "python@3.13"
 # Software for mathematics, science, and engineering
 brew "scipy"
 # Find and verify credentials
-brew "trufflehog", link: false
+brew "trufflehog"
 # Vi 'workalike' with many additional features
 brew "vim"
 # Internet file retriever
@@ -111,6 +112,8 @@ brew "kpeeters/repo/cadabra2"
 # Enable Windows-like alt-tab
 cask "alt-tab"
 # Terminal-based AI coding assistant
+# Command-line interface for CleanMyMac
+cask "macpaw/taps/cleanmymac-cli", trusted: true
 # Cross-platform Git credential storage for multiple hosting providers
 cask "git-credential-manager"
 # Graphical interface for LaTeX
