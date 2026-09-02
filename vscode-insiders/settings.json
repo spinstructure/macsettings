@@ -80,6 +80,11 @@
     }
   ],
 
+  // Use polling for LaTeX Workshop's file watcher.
+  // This is more robust if filesystem-change events are occasionally missed,
+  // and can help when the internal PDF viewer fails to notice a rebuilt PDF.
+  "latex-workshop.latex.watch.usePolling": true,
+
   // Give the PDF watcher more time before refreshing the viewer.
   // This can help when the PDF is rebuilt correctly but the tab does not update.
   "latex-workshop.latex.watch.pdf.delay": 1000,
@@ -191,6 +196,5 @@
   "remote.SSH.remotePlatform": {
     "tiger3.princeton.edu": "linux"
   },
-  "remote.SSH.enableDynamicForwarding": false,
-  "remote.SSH.showLoginTerminal": true
+  "remote.SSH.enableDynamicForwarding": false
 }
