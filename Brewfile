@@ -71,8 +71,12 @@ brew "nerdfetch"
 brew "openblas"
 # Package for scientific computing with Python
 brew "numpy"
+# Open client for Cisco AnyConnect VPN
+brew "openconnect"
 # Portable Archive Interchange archive tool
 brew "pax"
+# Perl compatible regular expressions library
+brew "pcre"
 # Highly capable, feature-rich programming language
 brew "perl"
 # PDF rendering library (based on the xpdf-3.0 code base)
