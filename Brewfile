@@ -3,6 +3,7 @@ tap "kpeeters/repo", trusted: true
 tap "macpaw/taps"
 # Spell checker with better logic than ispell
 brew "aspell"
+brew "ccusage"
 # Cross-platform make
 brew "cmake"
 # Documentation for CMake
@@ -44,9 +45,9 @@ brew "pkgconf"
 # File format designed to store large amounts of data
 brew "hdf5"
 # Tools and libraries to manipulate images in select formats
-brew "imagemagick"
+brew "imagemagick", link: false
 # Tools and libraries to manipulate images in many formats
-brew "imagemagick-full"
+brew "imagemagick-full", link: true
 # Julia installer and version multiplexer
 brew "juliaup"
 # Interpreted, interactive, object-oriented programming language
@@ -89,6 +90,8 @@ brew "python@3.12"
 brew "python-tk@3.12"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.13"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.15"
 # Software for mathematics, science, and engineering
 brew "scipy"
 # Find and verify credentials
@@ -116,6 +119,7 @@ brew "kpeeters/repo/cadabra2"
 # Enable Windows-like alt-tab
 cask "alt-tab"
 # Terminal-based AI coding assistant
+cask "claudoscope"
 # Command-line interface for CleanMyMac
 cask "macpaw/taps/cleanmymac-cli", trusted: true
 # Cross-platform Git credential storage for multiple hosting providers
@@ -156,5 +160,7 @@ vscode "ms-vscode.remote-server"
 vscode "streetsidesoftware.code-spell-checker"
 vscode "tamasfe.even-better-toml"
 vscode "tecosaur.latex-utilities"
+vscode "typescriptteam.native-preview"
 cargo "bend-lang"
 cargo "hvm"
+npm "ccusage-monitor"

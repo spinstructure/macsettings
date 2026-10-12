@@ -22,3 +22,4 @@ ms-vscode.remote-server
 streetsidesoftware.code-spell-checker
 tamasfe.even-better-toml
 tecosaur.latex-utilities
+typescriptteam.native-preview
