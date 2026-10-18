@@ -45,13 +45,13 @@ brew "pkgconf"
 # File format designed to store large amounts of data
 brew "hdf5"
 # Tools and libraries to manipulate images in select formats
-brew "imagemagick", link: false
+brew "imagemagick"
 # Tools and libraries to manipulate images in many formats
-brew "imagemagick-full", link: true
+brew "imagemagick-full"
 # Julia installer and version multiplexer
 brew "juliaup"
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.14"
+brew "python@3.15"
 # Interactive environments for writing and running code
 brew "jupyterlab"
 # Small library for rendering Postscript documents
@@ -62,6 +62,8 @@ brew "libxc"
 brew "llvm"
 # Small build system for use with gyp or CMake
 brew "ninja"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Terminal-based visual file manager
 brew "midnight-commander"
 # Lightweight PDF and XPS viewer
@@ -90,8 +92,6 @@ brew "python@3.12"
 brew "python-tk@3.12"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.13"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.15"
 # Software for mathematics, science, and engineering
 brew "scipy"
 # Find and verify credentials
