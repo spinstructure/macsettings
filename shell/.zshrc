@@ -25,3 +25,4 @@ fastfetch
 # >>> Added by Spyder >>>
 alias uninstall-spyder=$HOME/Library/spyder-6/uninstall-spyder.sh
 # <<< Added by Spyder <<<
+alias ls='ls -T'
