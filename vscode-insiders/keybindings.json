@@ -1,0 +1,13 @@
+[
+    {
+        "key": "cmd+s",
+        "command": "runCommands",
+        "when": "editorTextFocus && editorLangId =~ /^(latex|latex-expl3|doctex)$/ && config.latex-workshop.latex.autoBuild.run == 'never'",
+        "args": {
+            "commands": [
+                "workbench.action.files.save",
+                "latex-workshop.build"
+            ]
+        }
+    }
+]

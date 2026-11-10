@@ -197,4 +197,8 @@
   "remote.SSH.remotePlatform": {
     "tiger3.princeton.edu": "linux"
   },
-  "remote.SSH.enableDynamicForwarding": false}
+  "remote.SSH.enableDynamicForwarding": false,
+  "accessibility.signals.lineHasInlineSuggestion": {
+    "sound": "off"
+  }
+}

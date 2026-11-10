@@ -1,246 +1,239 @@
-<!-- settings-sha256:b23fbc61cb4ad1b7e9b34298e56a7494c284b79d1c285ee33b563cac860eb15a; generator-version:2 -->
+<!-- settings-sha256:2519c0f4094ad0c4bb2e2565e3657632c9f8f71a55691b49f646cf6269f9c7d9; generator-version:2 -->
 
 # VS Code Insiders Settings
 
-This configuration covers editor behavior, Git, LaTeX authoring and PDF viewing, autosave, spell checking, Python environment activation, Lean installation prompts, and Remote SSH connections.
+This `settings.json` configures editor readability, suggestions, Git, LaTeX authoring and PDF viewing, autosave, spelling, language tools, and remote SSH connections.
 
-`settings.json` uses **JSON with Comments (JSONC)** because it contains `//` comments. Preserve it as JSONC when editing; strict JSON parsers do not accept these comments.
+The file uses **JSON with Comments (JSONC)** because it contains `//` comments. Keep those comments when restoring or editing it in VS Code Insiders.
 
-Built-in settings are identified below. Extension-specific settings require the corresponding extensions to be installed. Workspace settings and language-specific overrides can affect the configuration that applies to a particular file.
+Built-in settings work through VS Code itself or its bundled extensions. Extension-specific settings require the corresponding extensions to be installed and enabled: **Python Environments**, **Lean 4**, **LaTeX Workshop**, **Easy Toggle Settings**, **Code Spell Checker**, and **Remote - SSH**. The selected appearance also requires the **GitHub Theme** extension.
 
 ## Restore on macOS
 
-1. In VS Code Insiders, run **Preferences: Open User Settings (JSON)** from the Command Palette.
-2. Back up any existing settings before replacing or merging them.
-3. Place the supplied file at the standard macOS VS Code Insiders User settings location:
+1. Back up any existing User `settings.json`.
+2. In Finder, choose **Go → Go to Folder** and enter `~/Library/Application Support/Code - Insiders/User/`.
+3. Place the supplied file there as `settings.json`, creating the directory if necessary. Merge with existing settings if they should be retained.
+4. Install the extensions listed above.
+5. Open VS Code Insiders and run **Preferences: Open User Settings (JSON)** to review the configuration. Restart the application if extension settings require it.
 
-   `~/Library/Application Support/Code - Insiders/User/settings.json`
+The full standard destination is `~/Library/Application Support/Code - Insiders/User/settings.json`. Workspace and language-specific settings can affect the resulting configuration; see the [VS Code settings documentation](https://code.visualstudio.com/docs/configure/settings).
 
-4. Install the extensions needed by the configuration: Python Environments, GitHub Theme, Lean 4, LaTeX Workshop, Easy Toggle Settings, Code Spell Checker, and Remote - SSH.
+## Editor behavior
 
-The path above applies to the standard User configuration. If using a separate profile or custom user-data location, use the settings file opened by the Command Palette command.
-
-## Editor behavior and completion
-
-These settings are built into VS Code.
+These are built-in VS Code settings.
 
 | Setting | Configured value | Practical effect |
 | --- | --- | --- |
-| `editor.minimap.enabled` | `false` | Hides the editor minimap. |
-| `editor.wordWrap` | `"on"` | Wraps displayed lines to the editor width without inserting line breaks into the file. |
-| `editor.fontSize` | `16` | Sets editor text size to 16 pixels. |
-| `editor.renderValidationDecorations` | `"on"` | Enables visual decorations for diagnostics, such as error and warning underlines. Diagnostic providers still determine which issues are reported. |
-| `editor.suggestOnTriggerCharacters` | `true` | Allows completion suggestions to appear when a language provider recognizes a trigger character. |
-| `editor.tabCompletion` | `"on"` | Enables Tab-based completion when a matching completion is available. |
+| `editor.minimap.enabled` | `false` | Hides the miniature overview of the file beside the editor. |
+| `editor.wordWrap` | `"on"` | Wraps long lines to the editor width without inserting line breaks into the file. |
+| `editor.fontSize` | `16` | Sets the editor text size to 16 pixels. |
+| `editor.renderValidationDecorations` | `"on"` | Displays diagnostic decorations, such as error and warning underlines, when diagnostics are available. |
+| `zenMode.hideLineNumbers` | `false` | Prevents Zen Mode from hiding line numbers. Their actual visibility still depends on the editor’s line-number configuration. |
 
-### Automatic suggestions
+## Suggestions and language overrides
 
-The global `editor.quickSuggestions` object configures automatic suggestions by text context:
+The global suggestion settings apply wherever supported, subject to language-specific overrides:
 
-| Nested property | Value | Practical effect |
+| Setting | Configured value | Practical effect |
+| --- | --- | --- |
+| `editor.quickSuggestions` | Object described below | Controls where suggestions appear automatically while typing. |
+| `editor.suggestOnTriggerCharacters` | `true` | Allows automatic suggestions after characters designated as triggers by a language’s completion provider. |
+| `editor.tabCompletion` | `"on"` | Enables Tab completion for matching completions. |
+
+The `editor.quickSuggestions` object contains three context switches:
+
+| Property | Value | Effect |
 | --- | --- | --- |
 | `other` | `true` | Enables automatic suggestions in ordinary code or text contexts. |
-| `comments` | `false` | Disables automatic quick suggestions in text recognized as comments. |
-| `strings` | `true` | Enables automatic suggestions in text recognized as strings. |
+| `comments` | `false` | Disables automatic quick suggestions inside recognized comments. |
+| `strings` | `true` | Enables automatic quick suggestions inside recognized strings. |
 
-These global settings apply beyond LaTeX. Context classification and available suggestions depend on the language support installed.
+Comment and string recognition depends on the active language support. These switches control automatic quick suggestions; available completion content depends on installed language providers.
 
-### Language-specific overrides
+The top-level `[latex]` and `[tex]` objects are **language-specific override blocks**. Each applies to its corresponding VS Code language identifier, rather than directly matching a filename extension. Both contain:
 
-The `[latex]` and `[tex]` objects each contain the same overrides:
+- `editor.quickSuggestions` with `other: true`, `comments: false`, and `strings: true`, explicitly repeating the global configuration.
+- `editor.suggest.snippetsPreventQuickSuggestions: false`, allowing quick suggestions while a snippet is active instead of suppressing them for that reason.
 
-| Setting inside each override | Configured value | Practical effect |
+These are built-in editor controls used alongside the LaTeX Workshop completion settings below.
+
+## Appearance and chat
+
+| Setting | Configured value | Practical effect |
 | --- | --- | --- |
-| `editor.quickSuggestions` | `other: true`, `comments: false`, `strings: true` | Explicitly applies the same automatic-suggestion policy to that language identifier. |
-| `editor.suggest.snippetsPreventQuickSuggestions` | `false` | Allows quick suggestions while a snippet session is active. |
+| `workbench.colorTheme` | `"GitHub Dark Default"` | Selects this dark theme from the GitHub Theme extension. The setting itself is built into VS Code. |
+| `chat.fontSize` | `16` | Sets normal chat text to 16 pixels. The supplied comments also identify this as controlling the prompt box. |
+| `chat.editor.fontSize` | `16` | Sets chat code text to 16 pixels, including code snippets and embedded code or diff editors where the chat interface uses this setting. |
 
-These blocks target language identifiers, rather than filename extensions directly. Their effect depends on the language mode assigned to the document.
+The chat font keys belong to VS Code’s chat configuration. Their application to particular chat surfaces can depend on the interface or extension; the [VS Code chat documentation](https://code.visualstudio.com/docs/chat/chat-overview) documents the distinction between chat text and code-block fonts.
 
-## Appearance, chat, and Zen Mode
+## Accessibility
 
-| Setting | Configured value | Provider and practical effect |
-| --- | --- | --- |
-| `workbench.colorTheme` | `"GitHub Dark Default"` | Built-in theme selection setting. Selects the named theme supplied by the GitHub Theme extension. |
-| `chat.fontSize` | `16` | Built-in chat setting. Sets normal chat text and prompt-box text to 16 pixels. |
-| `chat.editor.fontSize` | `16` | Built-in chat setting. Sets text in chat code editors, including snippets and diffs, to 16 pixels. |
-| `zenMode.hideLineNumbers` | `false` | Built-in setting. Prevents Zen Mode from hiding line numbers; it does not independently enable line numbers if another setting disables them. |
+`accessibility.signals.lineHasInlineSuggestion` is a built-in object setting with `sound: "off"`. It disables the accessibility sound associated with a line containing an inline suggestion. It does not disable inline suggestions themselves.
 
 ## Git
 
-These settings belong to VS Code’s built-in Git integration.
+These settings belong to VS Code’s bundled Git extension:
 
 | Setting | Configured value | Practical effect |
 | --- | --- | --- |
-| `git.autofetch` | `true` | Enables automatic fetching of remote repository information. Fetching updates remote-tracking information without merging it into the current branch. |
-| `git.enableSmartCommit` | `true` | Allows committing all changes when no changes are staged. Review the changes before invoking a commit. |
-| `git.confirmSync` | `false` | Suppresses the confirmation prompt for Git synchronization. It does not itself initiate synchronization. |
+| `git.autofetch` | `true` | Enables periodic background fetching so remote-tracking information stays current. Fetching does not itself merge remote changes into the working branch. |
+| `git.enableSmartCommit` | `true` | Allows a commit when nothing is staged by using smart commit to include changes automatically, subject to the Git extension’s other controls. |
+| `git.confirmSync` | `false` | Removes the confirmation prompt for the Git synchronization action. Synchronization can pull and push changes. |
 
-## Python and Lean
-
-| Setting | Configured value | Provider and practical effect |
-| --- | --- | --- |
-| `python-envs.terminal.autoActivationType` | `"off"` | Python Environments extension. Disables its automatic environment activation in terminals. |
-| `lean4.alwaysAskBeforeInstallingLeanVersions` | `true` | Lean 4 extension. Requests confirmation before the extension installs Lean versions. |
+These meanings follow the [bundled Git extension’s setting descriptions](https://github.com/microsoft/vscode/blob/main/extensions/git/package.nls.json).
 
 ## Autosave and LaTeX builds
 
-| Setting | Configured value | Provider and practical effect |
+| Setting | Provider | Configured value | Practical effect |
+| --- | --- | --- | --- |
+| `files.autoSave` | VS Code | `"afterDelay"` | Automatically saves modified files after an editing delay. |
+| `files.autoSaveDelay` | VS Code | `2000` | Sets that delay to 2,000 milliseconds, or two seconds. |
+| `latex-workshop.latex.autoBuild.run` | LaTeX Workshop | `"onSave"` | Requests a project build when a LaTeX source file is saved. |
+
+Together, these settings allow autosave to trigger LaTeX builds after typing pauses. Build timing and success still depend on LaTeX Workshop and the available TeX toolchain. The save trigger is documented in [LaTeX Workshop’s build documentation](https://github.com/James-Yu/LaTeX-Workshop/wiki/Compile#auto-build-latex).
+
+`latex-workshop.message.error.show: false` suppresses LaTeX Workshop error popup notifications. It controls notifications rather than fixing or preventing build errors.
+
+## PDF viewing and refresh
+
+| Setting | Provider | Configured value | Practical effect |
+| --- | --- | --- | --- |
+| `workbench.editorAssociations` | VS Code | `"*.pdf": "latex-workshop-pdf-hook"` | Associates filenames matching `*.pdf` with LaTeX Workshop’s PDF editor hook. The referenced editor requires LaTeX Workshop. |
+| `latex-workshop.view.pdf.viewer` | LaTeX Workshop | `"tab"` | Opens the extension’s PDF viewer in a VS Code editor tab. |
+| `latex-workshop.view.pdf.invert` | LaTeX Workshop | `1` | Sets the PDF inversion filter strength to full inversion when invert mode is active. |
+| `latex-workshop.view.pdf.invertMode.enabled` | LaTeX Workshop | `"never"` | Disables invert mode at this configuration scope until an applicable override changes it. |
+| `latex-workshop.latex.watch.pdf.delay` | LaTeX Workshop | `1000` | Sets the PDF change-stabilization delay to 1,000 milliseconds before the extension treats the changed binary file as ready. This can affect refresh timing. |
+
+Changes to inversion parameters may require reopening the viewer or restarting VS Code. See the [LaTeX Workshop PDF viewer documentation](https://github.com/James-Yu/LaTeX-Workshop/wiki/View).
+
+`latex-workshop.latex.watch.usePolling: false` requests that the extension’s file watcher operate without polling, where supported by the installed version.
+
+**Comment discrepancy:** the comment immediately above `latex-workshop.latex.watch.usePolling` says to use polling, but the configured value is `false`. The value disables polling; the comment does not change that behavior.
+
+### Workspace PDF dark-mode toggle
+
+`easy-toggle-settings.items` is an array supplied by **Easy Toggle Settings**. It contains one object defining a status-bar toggle:
+
+| Object property | Configured value | Purpose |
 | --- | --- | --- |
-| `files.autoSave` | `"afterDelay"` | Built-in setting. Enables saving modified files after a delay. |
-| `files.autoSaveDelay` | `2000` | Built-in setting. Sets the autosave delay to 2,000 milliseconds, or two seconds after editing stops. |
-| `latex-workshop.latex.autoBuild.run` | `"onSave"` | LaTeX Workshop. Enables automatic builds on save events handled by the extension, including applicable autosaves. |
+| `property` | `"latex-workshop.view.pdf.invertMode.enabled"` | Identifies the setting to change. |
+| `icon` | `"color-mode"` | Selects the status-bar icon. |
+| `values` | `["always", "never"]` | Cycles between enabling and disabling PDF invert mode. |
+| `disabledValue` | `"never"` | Makes the icon appear disabled or grayed out when inversion is off. |
+| `isWorkspace` | `true` | Writes the toggled value at workspace scope instead of changing the User setting. |
 
-Together, these settings can trigger a LaTeX build after a two-second pause in editing. Actual compilation still requires a working TeX installation and a build configuration that succeeds for the document.
+The User value remains `"never"` while the toggle can create a workspace override. Other windows opening that same workspace can share its saved override. The toggle requires both Easy Toggle Settings and LaTeX Workshop; its fields are documented by [Easy Toggle Settings](https://github.com/mhagnumdw/vscode-easy-toggle-settings#extension-settings).
 
-## PDF opening, viewing, and refresh
+## LaTeX completion and file lookup
 
-The `workbench.editorAssociations` object is built into VS Code. Its entry maps the filename pattern `*.pdf` to the editor identifier `"latex-workshop-pdf-hook"`, directing PDF opening through LaTeX Workshop’s PDF handling.
-
-The remaining settings in this section are provided by LaTeX Workshop.
+All settings in this section come from **LaTeX Workshop**.
 
 | Setting | Configured value | Practical effect |
 | --- | --- | --- |
-| `latex-workshop.view.pdf.viewer` | `"tab"` | Uses the internal PDF viewer in a VS Code tab. |
-| `latex-workshop.view.pdf.invert` | `1` | Sets the PDF inversion amount to `1` for use when inversion mode is active. |
-| `latex-workshop.view.pdf.invertMode.enabled` | `"never"` | Disables PDF inversion at the scope where this file is installed, unless overridden at a more specific scope. |
-| `latex-workshop.latex.watch.usePolling` | `false` | Disables polling for LaTeX Workshop’s file watcher. |
-| `latex-workshop.latex.watch.pdf.delay` | `1000` | Sets the PDF watcher delay to 1,000 milliseconds, allowing time before the extension processes a PDF change and refreshes the viewer. |
-| `latex-workshop.message.error.show` | `false` | Suppresses LaTeX Workshop error popup notifications. It does not prevent compilation errors or resolve them. |
+| `latex-workshop.intellisense.package.enabled` | `true` | Adds available completion data for commands and environments from packages used by the project. |
+| `latex-workshop.intellisense.package.env.enabled` | `true` | Offers package environments through snippets such as `\envname`. |
+| `latex-workshop.intellisense.package.unusual` | `true` | Includes less commonly used package commands and environments. |
+| `latex-workshop.intellisense.unimathsymbols.enabled` | `true` | Adds Unicode-math symbol command suggestions. |
+| `latex-workshop.intellisense.subsuperscript.enabled` | `true` | Suggests project-used subscripts and superscripts when typing constructs such as `_{` and `^{`. |
+| `latex-workshop.intellisense.update.aggressive.enabled` | `true` | Updates completion information after typing pauses, rather than waiting only for saves. |
+| `latex-workshop.intellisense.update.delay` | `500` | Sets that parsing delay to 500 milliseconds. |
+| `latex-workshop.kpsewhich.bibtex.enabled` | `true` | Enables `kpsewhich` lookup for bibliography files. |
+| `latex-workshop.kpsewhich.class.enabled` | `true` | Enables `kpsewhich` lookup for document-class files. |
 
-**Comment/value discrepancy:** the comment above `latex-workshop.latex.watch.usePolling` says to use polling, but the configured value is `false`. The effective configuration disables polling; the comment should be corrected if that is the intended behavior.
+Package completion depends on available completion data. The lookup settings require an accessible `kpsewhich`, normally provided by a TeX distribution such as TeX Live or MacTeX. See [LaTeX Workshop’s IntelliSense documentation](https://github.com/James-Yu/LaTeX-Workshop/wiki/Intellisense).
 
-### PDF inversion toggle
+## Spelling
 
-The Easy Toggle Settings extension supplies `easy-toggle-settings.items`. This array contains one status-bar toggle:
-
-| Field | Configured value | Meaning |
-| --- | --- | --- |
-| `property` | `"latex-workshop.view.pdf.invertMode.enabled"` | Identifies the setting controlled by the button. |
-| `icon` | `"color-mode"` | Selects the icon displayed for the toggle. |
-| `values` | `["always", "never"]` | Defines the two values the button cycles between. |
-| `disabledValue` | `"never"` | Identifies `"never"` as the toggle’s disabled state. |
-| `isWorkspace` | `true` | Writes the changed value at workspace scope. |
-
-The button therefore switches PDF inversion on and off for the current workspace. Its workspace setting can override the User-level `"never"` value. Other windows using that same workspace may also pick up the workspace setting.
-
-Both Easy Toggle Settings and LaTeX Workshop are needed for this control to have its intended effect.
-
-## LaTeX IntelliSense and file lookup
-
-These settings are provided by LaTeX Workshop.
+All `cSpell.*` settings belong to **Code Spell Checker**.
 
 | Setting | Configured value | Practical effect |
 | --- | --- | --- |
-| `latex-workshop.intellisense.package.enabled` | `true` | Enables package-aware completion support. |
-| `latex-workshop.intellisense.package.env.enabled` | `true` | Enables package-provided environment completions. |
-| `latex-workshop.intellisense.package.unusual` | `true` | Enables inclusion of package completion information classified by the extension as unusual. |
-| `latex-workshop.intellisense.unimathsymbols.enabled` | `true` | Enables Unicode mathematics symbol completion support. |
-| `latex-workshop.intellisense.subsuperscript.enabled` | `true` | Enables the extension’s subscript and superscript completion support. |
-| `latex-workshop.intellisense.update.aggressive.enabled` | `true` | Enables the extension’s more aggressive IntelliSense update behavior while editing. |
-| `latex-workshop.intellisense.update.delay` | `500` | Sets the IntelliSense update delay to 500 milliseconds. |
-| `latex-workshop.kpsewhich.bibtex.enabled` | `true` | Enables use of `kpsewhich` to help locate bibliography files. |
-| `latex-workshop.kpsewhich.class.enabled` | `true` | Enables use of `kpsewhich` to help locate LaTeX class files. |
+| `cSpell.enabled` | `true` | Enables spell checking. |
+| `cSpell.language` | `"en-US"` | Selects US English. |
+| `cSpell.diagnosticLevel` | `"Warning"` | Reports spelling diagnostics as warnings. |
+| `cSpell.useCustomDecorations` | `false` | Uses VS Code diagnostic rendering for spelling issues, allowing the warning severity to apply. |
 
-Available completions depend on the extension’s supported packages and its analysis of the document. The lookup settings require an accessible `kpsewhich` executable, typically supplied by a TeX distribution such as TeX Live or MacTeX.
-
-## Spell checking
-
-All `cSpell.*` settings are provided by the Code Spell Checker extension.
-
-| Setting | Configured value | Practical effect |
-| --- | --- | --- |
-| `cSpell.enabled` | `true` | Enables spell checking for eligible documents. |
-| `cSpell.language` | `"en-US"` | Selects US English spelling dictionaries. |
-| `cSpell.diagnosticLevel` | `"Warning"` | Reports spelling issues with warning severity. |
-| `cSpell.useCustomDecorations` | `false` | Disables the extension’s custom spelling decorations. Standard diagnostic rendering remains subject to VS Code’s diagnostic settings. |
+These controls are defined in the [Code Spell Checker settings schema](https://github.com/streetsidesoftware/vscode-spell-checker/blob/main/package.json).
 
 ### Enabled file types
 
-The `cSpell.enabledFileTypes` object explicitly enables these language identifiers:
+`cSpell.enabledFileTypes` maps language identifiers to boolean switches. It explicitly enables these five identifiers with `true`:
 
-| Language identifier | Value | Document type |
-| --- | --- | --- |
-| `latex` | `true` | LaTeX |
-| `tex` | `true` | TeX |
-| `bibtex` | `true` | BibTeX bibliographies |
-| `markdown` | `true` | Markdown |
-| `plaintext` | `true` | Plain text |
+| Language identifier | Content |
+| --- | --- |
+| `latex` | LaTeX |
+| `tex` | TeX |
+| `bibtex` | Bibliography records |
+| `markdown` | Markdown |
+| `plaintext` | Plain text |
 
-This object enables the listed types; it does not explicitly disable every unlisted type. Spell checking also depends on the document’s URI scheme and any applicable overrides.
+This object enables the listed types; it does not explicitly disable unlisted types.
 
 ### Ignored regular expressions
 
-The `cSpell.ignoreRegExpList` array excludes matching text from spell checking. The entries below show the **exact JSONC string values**, including their escape characters:
+`cSpell.ignoreRegExpList` is an array of patterns whose matched text is excluded from spell checking. The strings below retain their **exact JSONC escaping**:
 
-| Configured string | Matching text excluded from checking |
+| JSONC string | Matched text |
 | --- | --- |
-| `"\\\\[a-zA-Z]+"` | A literal backslash followed by one or more ASCII letters, such as `\section` or `\alpha`. Command arguments are not included by this expression. |
-| `"\\$[^$]*\\$"` | Text between a pair of dollar signs, with no dollar sign inside the match. This is intended to cover simple `$...$` mathematics. |
-| `"\\\\\\[[\\s\\S]*?\\\\\\]"` | Text from `\[` to the next `\]`, including line breaks. |
-| `"\\\\\\([\\s\\S]*?\\\\\\)"` | Text from `\(` to the next `\)`, including line breaks. |
+| `"\\\\[a-zA-Z]+"` | A backslash followed by one or more ASCII letters, covering command names such as `\section`. |
+| `"\\$[^$]*\\$"` | Text from one dollar sign to the next, covering simple `$...$` math spans. |
+| `"\\\\\\[[\\s\\S]*?\\\\\\]"` | Text enclosed by `\[` and `\]`, including line breaks. |
+| `"\\\\\\([\\s\\S]*?\\\\\\)"` | Text enclosed by `\(` and `\)`, including line breaks. |
 
-JSON escaping and regular-expression escaping both contribute to the repeated backslashes. In the last two expressions, `[\s\S]` matches any character, including a newline, and `*?` makes the match stop at the earliest closing delimiter.
+JSONC string decoding removes one layer of backslash escaping before the regular expression is interpreted. In the last two patterns, `[\s\S]` matches any character, including a newline, and `*?` stops at the first matching closing delimiter.
 
-These expressions are text-matching rules, not a TeX parser. They do not reliably distinguish escaped dollar signs or `$$...$$` display mathematics, and they do not explicitly cover named mathematical environments.
+These patterns are text filters, not a TeX parser. The command pattern does not automatically exclude command arguments. The dollar-sign pattern does not reliably distinguish escaped dollars or `$$...$$` display math.
 
-### Custom accepted words
+### Custom dictionary
 
-The `cSpell.userWords` array adds the following 42 entries to the accepted spelling vocabulary:
+`cSpell.userWords` is an array of additional accepted words in the User dictionary. It reduces false spelling warnings for technical vocabulary, acronyms, names, and LaTeX-related terms.
 
-- `ABJM`, `backrefs`, `basepoint`, `Bianchi`, `bosonic`, `bosonization`
-- `brane`, `branes`, `cohomology`, `compactifications`, `Darboux`, `diagonalizable`
-- `diffeomorphism`, `eigenmodes`, `equivariant`, `exponentials`, `factorization`, `fermionic`
-- `fieldstrength`, `groupoids`, `holomorphic`, `homeomorphism`, `homomorphism`, `jheppub`
-- `monoid`, `monoidal`, `natbib`, `nondynamical`, `orbifold`, `Rham`
-- `spacetimes`, `spinor`, `spinors`, `sublattice`, `SUGRA`, `supergravity`
-- `superinvariant`, `superpotentials`, `symplectic`, `topological`, `torsionfree`, `wavefunction`
+The configured entries are:
 
-This is an inline custom vocabulary. It accepts these terms for spell checking; it does not define them or configure editor completions.
+`ABJM`, `backrefs`, `basepoint`, `Bianchi`, `bosonic`, `bosonization`, `brane`, `branes`, `cohomology`, `compactifications`, `Darboux`, `diagonalizable`, `diffeomorphism`, `eigenmodes`, `equivariant`, `exponentials`, `factorization`, `fermionic`, `fieldstrength`, `groupoids`, `holomorphic`, `homeomorphism`, `homomorphism`, `jheppub`, `monoid`, `monoidal`, `natbib`, `nondynamical`, `orbifold`, `Rham`, `spacetimes`, `spinor`, `spinors`, `sublattice`, `SUGRA`, `supergravity`, `superinvariant`, `superpotentials`, `symplectic`, `topological`, `torsionfree`, and `wavefunction`.
 
 ### Enabled document schemes
 
-The `cSpell.enabledSchemes` object enables spell checking for documents with each of the following URI schemes:
+`cSpell.enabledSchemes` enables spelling eligibility for each listed URI scheme with `true`:
 
-| Scheme | Value | Document context |
-| --- | --- | --- |
-| `comment` | `true` | Documents exposed through a comment URI provider |
-| `file` | `true` | Filesystem documents |
-| `gist` | `true` | Documents exposed through a Gist provider |
-| `repo` | `true` | Documents exposed through a repository provider |
-| `sftp` | `true` | Documents exposed through an SFTP provider |
-| `untitled` | `true` | Unsaved documents |
-| `vscode-notebook-cell` | `true` | Notebook cell documents |
-| `vscode-scm` | `true` | Documents exposed by source-control features |
-| `vscode-userdata` | `true` | VS Code user-data documents |
-| `vscode-vfs` | `true` | Documents exposed through that virtual-filesystem scheme |
-| `vsls` | `true` | Live Share documents |
-| `overleaf-workshop` | `true` | Documents exposed by Overleaf Workshop |
+| Scheme | Document context |
+| --- | --- |
+| `comment` | Comment editors |
+| `file` | Filesystem documents |
+| `gist` | Gist-backed documents |
+| `repo` | Repository-backed documents |
+| `sftp` | SFTP-backed documents |
+| `untitled` | Unsaved documents |
+| `vscode-notebook-cell` | Notebook cells |
+| `vscode-scm` | Source-control input |
+| `vscode-userdata` | User-data documents |
+| `vscode-vfs` | Virtual filesystem documents |
+| `vsls` | Live Share documents |
+| `overleaf-workshop` | Overleaf Workshop documents |
 
-Scheme names describe document URI types, not filename extensions. Enabling a scheme does not install its provider, connect to a service, or override all other spell-checking eligibility rules.
+Scheme eligibility does not override other checking restrictions or install document providers. Restart VS Code after changing this object, as specified in the [Code Spell Checker schema](https://github.com/streetsidesoftware/vscode-spell-checker/blob/main/package.json).
+
+## Python environments
+
+`python-envs.terminal.autoActivationType: "off"` belongs to **Python Environments**. It disables the extension’s automatic activation of Python environments in terminals. Manual activation remains available.
+
+Restart terminals after changing this setting; see the [Python Environments settings reference](https://github.com/microsoft/vscode-python-environments#settings-reference).
+
+## Lean
+
+`lean4.alwaysAskBeforeInstallingLeanVersions: true` belongs to **Lean 4**. It requests a confirmation prompt before Elan downloads and installs a new Lean version. The extension documents this feature as requiring Elan 4.0.0 or later in its [settings schema](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/package.json).
 
 ## Remote SSH
 
-These settings are provided by the Remote - SSH extension.
+All `remote.SSH.*` settings belong to **Remote - SSH**.
 
 | Setting | Configured value | Practical effect |
 | --- | --- | --- |
-| `remote.SSH.showLoginTerminal` | `true` | Shows the SSH login terminal, making login output and interactive authentication prompts visible. |
-| `remote.SSH.useLocalServer` | `false` | Disables the extension’s local-server connection mode. |
-| `remote.SSH.useExecServer` | `false` | Disables the extension’s exec-server connection mode. |
-| `remote.SSH.remotePlatform` | One host mapped to `"linux"` | Explicitly identifies the configured remote host as Linux. The host identifier is omitted here to avoid reproducing environment-specific information. |
-| `remote.SSH.enableDynamicForwarding` | `false` | Disables the extension’s use of SSH dynamic forwarding. This does not necessarily disable other forwarding mechanisms. |
+| `remote.SSH.showLoginTerminal` | `true` | Shows the SSH login terminal so authentication prompts and connection output are visible. |
+| `remote.SSH.useLocalServer` | `false` | Selects terminal-based connection handling instead of the extension’s reusable local-server mode. |
+| `remote.SSH.useExecServer` | `false` | Disables the exec-server connection mode that bootstraps through a minimal control server. |
+| `remote.SSH.remotePlatform` | Host-to-platform object | Maps the configured host to `"linux"`, identifying its platform for Remote - SSH. The host identifier is omitted here. |
+| `remote.SSH.enableDynamicForwarding` | `false` | Disables the extension’s use of SSH dynamic forwarding for its connection. This does not by itself describe or disable every form of port forwarding. |
 
-The `remote.SSH.remotePlatform` object uses host identifiers as keys and operating-system identifiers as values. Review its host mapping before restoring this configuration in another environment.
-
-The connection details associated with local-server and exec-server modes can vary with the installed Remote - SSH version. This configuration explicitly disables both modes; it does not define an SSH hostname, account, or authentication method for initiating a connection.
-
-## Configuration review points
-
-- Autosave uses a two-second delay, and LaTeX Workshop builds on applicable save events.
-- PDF inversion starts disabled at User scope; the status-bar toggle can enable it for a workspace.
-- File-watcher polling is disabled, despite the adjacent comment saying otherwise.
-- The PDF watcher delay is one second, and the IntelliSense update delay is half a second.
-- LaTeX error popups are suppressed, so build output and diagnostics remain useful places to inspect failures.
-- Spell checking includes an explicit technical vocabulary and regex exclusions whose coverage is intentionally limited.
-- Git smart commit is enabled, and synchronization confirmation is disabled.
-- The Remote SSH platform mapping is environment-specific and should be reviewed during restoration.
+The connection-mode distinction is documented in [Remote - SSH troubleshooting](https://github.com/microsoft/vscode-remote-release/wiki/Remote-SSH-Troubleshooting). These settings govern connection handling; working SSH access and authentication must still be available.
