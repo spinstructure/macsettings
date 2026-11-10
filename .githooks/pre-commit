@@ -6,8 +6,8 @@ cd "$REPO_DIR"
 
 "$REPO_DIR/scripts/ensure-latex-workshop-relative-links.py"
 
-if ! git diff --cached --quiet --diff-filter=ACMR -- \
-  vscode-insiders/settings.json; then
+if ! git diff --cached --quiet --diff-filter=ACMRD -- \
+  vscode-insiders/settings.json vscode-insiders/keybindings.json; then
   zsh scripts/update-vscode-insiders-readme.sh
   git add -- vscode-insiders/README.md
 fi

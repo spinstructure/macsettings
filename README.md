@@ -18,7 +18,7 @@ This repository backs up or records settings/state for the following external ap
 | [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) | User settings, keybindings, snippets, extension list, generated folder documentation, and a reproducible LaTeX Workshop PDF-link integration |
 | [Stats](https://mac-stats.com/) | Sanitized Stats app preferences from the `eu.exelban.Stats` macOS preferences domain, if present |
 | [Homebrew](https://brew.sh/) | Package/app state via [`Brewfile`](https://docs.brew.sh/Brew-Bundle-and-Brewfile) |
-| [Codex CLI](https://learn.chatgpt.com/docs/non-interactive-mode) | Regenerates the VS Code Insiders settings documentation from the sanitized `settings.json` |
+| [Codex CLI](https://learn.chatgpt.com/docs/non-interactive-mode) | Regenerates the VS Code Insiders documentation from the sanitized `settings.json` and `keybindings.json` |
 | [Gitleaks](https://github.com/gitleaks/gitleaks) | Optional secret scanning before commit/push |
 | [TruffleHog](https://github.com/trufflesecurity/trufflehog) | Optional secret scanning before commit/push |
 
@@ -215,16 +215,20 @@ vscode-insiders/extensions.txt
 vscode-insiders/snippets/
 ```
 
-The folder README is generated from `vscode-insiders/settings.json` by:
+The folder README is generated from `vscode-insiders/settings.json` and, when
+present, `vscode-insiders/keybindings.json` by:
 
 ```text
 scripts/update-vscode-insiders-readme.sh
 ```
 
 The main `backup.sh` script runs this generator automatically after copying and
-sanitizing the VS Code Insiders settings. The sanitized settings are supplied to
-Codex as prompt context. A hash marker prevents another Codex call when the
-settings have not changed.
+sanitizing the VS Code Insiders settings and keybindings. Both sanitized files
+are supplied to Codex as prompt context. A hash marker prevents another Codex
+call when both files and the generator version have not changed. Adding,
+changing, or removing `keybindings.json` invalidates the marker. The generated
+README explains every custom shortcut, its conditions, command sequence, and
+interaction with the settings.
 
 To regenerate the VS Code Insiders README manually:
 
@@ -234,7 +238,7 @@ To regenerate the VS Code Insiders README manually:
 
 ### Optional local pre-commit hook
 
-A local Git pre-commit hook can regenerate `vscode-insiders/README.md` automatically whenever `vscode-insiders/settings.json` is staged.
+A local Git pre-commit hook can regenerate `vscode-insiders/README.md` automatically whenever changes to `vscode-insiders/settings.json` or `vscode-insiders/keybindings.json` are staged.
 
 The repository includes a tracked hook at:
 
@@ -248,9 +252,8 @@ Enable tracked hooks for this clone with:
 git config core.hooksPath .githooks
 ```
 
-The hook regenerates and stages `vscode-insiders/README.md` only when
-`vscode-insiders/settings.json` is staged. The `core.hooksPath` setting is local
-to each clone.
+The hook regenerates and stages `vscode-insiders/README.md` when either source
+file has staged changes. The `core.hooksPath` setting is local to each clone.
 
 ### Relative TeX-line links in LaTeX Workshop PDFs
 
